@@ -1,0 +1,50 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <table>
+            <tbody>
+            <tr>
+                <th>
+                    <label for="id_name">이름: </label>
+                </th>
+                <td>
+                    <input type="text" name="name" maxlength="30" required id="id_name">
+                    <br>
+                    <span class="helptext">이름을 입력해주세요.</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_address">주소: </label>
+                </th>
+                <td>
+                    <input type="text" name="address" maxlength="200" required id="id_address" readonly>
+                    <input type="text" name="coord_x" maxlength="20" hidden="hidden">
+                    <input type="text" name="coord_y" maxlength="20" hidden="hidden">
+                    <button type="button" id="findAddressBtn">주소 찾기</button>
+                    <br>
+                    <span class="helptext">주소를 입력해주세요.</span>
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    <label for="id_password">암호: </label>
+                </th>
+                <td>
+                    <input type="password" name="password" maxlength="20" required id="id_password">
+                    <br>
+                    <span class="helptext">암호를 입력해주세요.</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <button type="submit">등록</button>
+    </form>
+</div>
+<!-- 주소 찾기 js -->
+<script type="text/javascript" src="/static/meokjeul/assets/js/create-main.js"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8jxb8lmspl"></script>
+{% endblock %}

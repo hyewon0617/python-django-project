@@ -1,0 +1,14 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            <label for="password">암호</label>
+            <input name="password" type="password"/>
+        </p>
+        <button type="submit">삭제</button>
+    </form>
+</div>
+{% endblock %}

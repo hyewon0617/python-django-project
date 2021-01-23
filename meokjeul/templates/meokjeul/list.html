@@ -1,0 +1,64 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<section id="banner">
+    <div class="inner">
+        <h1>먹는즐거움?</h1>
+        <br/>
+        <h1>먹즐!</h1>
+        <p>자유롭게 맛집을 등록하고<br/>
+            리뷰를 남겨보세요</p>
+    </div>
+</section>
+<div class="container">
+    {% for item in restaurants %}
+    <div class="row restaurant-item" style="margin:20px auto;">
+        <div class="col-sm-12">
+            <div class="card border-secondary">
+                <div class="card-body">
+                    <h5 class="card-title">{{ item.name }}</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">{{ item.address }}</h6>
+                    <p class="card-text">리뷰: {{ item.reviews_count }}개,
+                        {% if item.average_point == None %}<span>평점없음</span>{% endif %}
+                        {% if item.average_point != None %}<span>{{ item.average_point }}점</span>{% endif %}</p>
+                    <a href="{% url 'restaurant-detail' id=item.id %}" class="card-link">자세히 보기</a>
+                    <a href="{% url 'restaurant-update' %}?id={{ item.id }}" class="card-link">수정하기</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <div class="pagination">
+                <spen class="step-links text-center" style="width:100%;">
+
+                    {% if restaurants.has_previous %}
+                        <a href="?page=1">&laquo;</a>
+                    {%  endif %}
+
+                    {% for pageNum in pageRange %}
+                        {% if restaurants.number == pageNum %}
+                            <spen class="current">
+                                {{ restaurants.number }}
+                            </spen>
+                        {% else %}
+                           <a href="?page={{ pageNum }}">{{ pageNum }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    {% if restaurants.paginator.num_pages > lastPage %}
+                        <a href="?page={{ nextRangeStartPage }}">&raquo;</a>
+                    {% endif %}
+
+                </spen>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="footer">
+        contact : gpdnjs2026@naver.com
+</div>
+<script type="text/javascript" src="/static/meokjeul/assets/js/update-main.js"></script>
+{% endblock %}

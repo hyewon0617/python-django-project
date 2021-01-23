@@ -1,0 +1,49 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form id="restaurantUpdateForm" action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ form.instance.id }}" />
+        <table>
+            <tbody>
+                <tr>
+                    <th>
+                        <label for="id_name">이름:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="name" maxlength="30" required id="id_name" value="{{ form.instance.name }}">
+                        <br>
+                        <span class="helptext">이름을 입력해주세요.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="id_address">주소:</label>
+                    </th>
+                    <td>
+                        <input type="text" name="address" maxlength="200" required id="id_address" value="{{ form.instance.address }}" readonly>
+                        <input type="text" name="coord_x" maxlength="20" hidden="hidden" value="{{ form.instance.coord_x }}">
+                        <input type="text" name="coord_y" maxlength="20" hidden="hidden" value="{{ form.instance.coord_y }}">
+                        <button type="button" id="findAddressBtn">주소 찾기</button>
+                        <br>
+                        <span class="helptext">주소를 입력해주세요.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        <label for="id_password">암호:</label>
+                    </th>
+                    <td>
+                        <input type="password" name="password" maxlength="20" required id="id_password">
+                        <br>
+                        <span class="helptext">암호를 입력해주세요.</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button id="restaurantUpdateBtn" type="button">수정완료</button>
+    </form>
+</div>
+<script type="text/javascript" src="/static/meokjeul/assets/js/update-main.js"></script>
+{% endblock %}

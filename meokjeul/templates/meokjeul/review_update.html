@@ -1,0 +1,14 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ form.instance.id }}" />
+        <table>
+            {{form.as_table}}
+        </table>
+        <input type="submit" value="Write">
+    </form>
+</div>
+{% endblock %}

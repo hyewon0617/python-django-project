@@ -1,0 +1,48 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    {% for item in reviews %}
+        <div class="row restaurant-item" style="margin:20px auto">
+            <div class="col-sm-12">
+                <div class="card border_secondary">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.restaurant.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ item.restaurant.address }}</h6>
+                        <p class="card-text">{{ item.point }}점 / {{ item.comment }} - <b>{{ item.author|truncatechars:5 }}</b></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <div class="row">
+            <div class="col-sm-12 text-center">
+                <div class="pagination">
+                    <spen class="step-links text-center" style="width:100%;">
+
+                        {% if reviews.has_previous %}
+                            <a href="?page=1">&laquo;</a>
+                        {% endif %}
+
+                        {% for pageNum in pageRange %}
+                            {% if reviews.number == pageNum %}
+                                <spen class="current">
+                                    {{ reviews.number }}
+                                </spen>
+                            {% else %}
+                               <a href="?page={{ pageNum }}">{{ pageNum }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if reviews.paginator.num_pages > lastPage %}
+                            <a href="?page={{ nextRangeStartPage }}">&raquo;</a>
+                        {% endif %}
+
+                    </spen>
+                </div>
+            </div>
+    </div>
+
+</div>
+{% endblock %}

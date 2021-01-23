@@ -1,0 +1,115 @@
+{% extends 'meokjeul/base.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12" style="margin-top:20px">
+            {% if messages %}
+                <div class="messages">
+            {% for message in messages %}
+                <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                {{ message.message }}
+                </div>
+            {% endfor %}
+            </div>
+            {% endif %}
+            <h3>{{ item.name }}</h3>
+            <p>
+                {{ item.address }}
+            </p>
+            <input type="text" id="coordY" value="{{ item.coord_y }}" hidden="hidden">
+            <input type="text" id="coordX" value="{{ item.coord_x }}" hidden="hidden">
+
+            <div id="map" style="width:100%;height:400px;"></div>
+
+            <script>
+                $(document).ready(function () {
+                    /** 좌표값을 여기에만 넣으면 아래에 지도 중앙을 정할때, 마커를 표시할때에 자동으로 값이 들어가도록 변수 선언
+                     var보다는 해당 블럭에서만 변수로 사용되는 let을 사용하는게 더 좋은 추세이다 */
+                    let y = $('#coordY').val();
+                    let x = $('#coordX').val();
+
+                    let lating = new naver.maps.LatLng(y, x); // 37.5666171, 126.9782463
+
+                    let mapOptions = {
+                        center: lating,
+                        zoom: 12
+                    };
+
+                    let map = new naver.maps.Map('map', mapOptions);
+
+                    let marker = new naver.maps.Marker({
+                        map: map,
+                        position: lating
+                    });
+
+                });
+
+            </script>
+            <br/>
+            <p>
+                <a href="{% url 'restaurant-delete' id=item.id %}">
+                    <button class="btn btn-danger">삭제하기</button>
+                </a>
+            </p>
+            <hr/>
+            <p>
+                {% if user.is_authenticated %}
+                <a href="{% url 'review-create' restaurant_id=item.id %}">
+                    <button class="btn btn-info">리뷰쓰기</button>
+                </a>
+                {% endif %}
+            <p>리뷰목록</p>
+            </p>
+            {% for review in reviews %}
+            <div class="card bg-light mb-3">
+                <div class="card-header">
+                    {% if review.point == 1 %}
+                    {% for i in "x"|rjust:"1" %}
+                    <img src="/static/meokjeul/images/star.png">
+                    {% endfor %}
+
+                    {% elif review.point == 2 %}
+                    {% for i in "x"|rjust:"2" %}
+                    <img src="/static/meokjeul/images/star.png">
+                    {% endfor %}
+
+                    {% elif review.point == 3 %}
+                    {% for i in "x"|rjust:"3" %}
+                    <img src="/static/meokjeul/images/star.png">
+                    {% endfor %}
+
+                    {% elif review.point == 4 %}
+                    {% for i in "x"|rjust:"4" %}
+                    <img src="/static/meokjeul/images/star.png">
+                    {% endfor %}
+
+                    {% elif review.point == 5 %}
+                    {% for i in "x"|rjust:"5" %}
+                    <img src="/static/meokjeul/images/star.png">
+                    {% endfor %}
+                    {% endif %}
+
+                    (<b>{{ review.point }}</b>점)
+                    -<b>{{ review.author|truncatechars:5 }}</b> &ensp;
+                    {% if request.user == review.author %}
+                    <a href="{% url 'review-update' restaurant_id=item.id review_id=review.id %}">
+                        <button class="btn btn-outline-dark">수정하기</button>
+                    </a>
+                    <a href="{% url 'review-delete' restaurant_id=item.id review_id=review.id %}">
+                        <button type="button" class="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </a>
+                    {% endif %}
+                </div>
+                <div class="card-body">
+                    <p class="card-text">{{ review.comment }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8jxb8lmspl"></script>
+{% endblock %}
