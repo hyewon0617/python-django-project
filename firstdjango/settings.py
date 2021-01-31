@@ -79,7 +79,7 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 1
 
-LOGIN_REDIRECT_URL = '/meokjeul/list'
+LOGIN_REDIRECT_URL = '/'
 
 ROOT_URLCONF = 'firstdjango.urls'
 
