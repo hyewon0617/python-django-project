@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 from django.core.paginator import Paginator
-from django.db.models import Count, Avg, Q
+from django.db.models import Count, Avg
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -94,7 +94,8 @@ def delete(request, id):
         if item.password == request.POST.get('password') or item.password is None:
             item.delete()
             return redirect('/')
-        return redirect('restaurant-detail', id=id)
+        else:
+            messages.info(request, "암호가 일치하지 않습니다.")
     return render(request, 'meokjeul/delete.html', {'item': item})
 
 

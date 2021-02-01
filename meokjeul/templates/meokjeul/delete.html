@@ -10,5 +10,14 @@
         </p>
         <button type="submit">삭제</button>
     </form>
+    {% if messages %}
+        <div class="messages">
+    {% for message in messages %}
+        <div {% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+        {{ message.message }}
+        </div>
+    {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}

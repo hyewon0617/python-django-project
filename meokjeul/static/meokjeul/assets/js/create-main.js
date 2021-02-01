@@ -72,7 +72,8 @@ function getCoord() {
                     $('#findAddressResultJibun').html("<p>" + jibun + "</p>");
                     $('#confirmAddress').html(
                         "<p>이 위치로 등록하시겠습니까? </p>" +
-                        "<button type='button' id='addLocation' onclick='addLocation()' style='margin-right:0.5em'>등록</button>" +
+                        "<button type='button' id='addLocation' onclick='addLocation()'" +
+                        "style='margin-right:0.5em'>등록</button>" +
                         "<button type='button' id='closeBtn' onclick='javascript:window.close()'>취소</button>");
                 }
 
