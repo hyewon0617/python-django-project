@@ -3,7 +3,7 @@ from django.conf import settings
 
 # Create your models here.
 class Restaurant(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     address = models.CharField(max_length=200)
     coord_y = models.CharField(max_length=20, null=True)
     coord_x = models.CharField(max_length=20, null=True)
