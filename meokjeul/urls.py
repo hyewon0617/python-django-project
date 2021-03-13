@@ -25,4 +25,3 @@ urlpatterns =[
     path('update/findAddress/', views.findAddress, name="findAddress"),
     path('update/findAddressProc/', views.findAddressProc, name="findAddressProc"),
 ]
-

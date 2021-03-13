@@ -15,7 +15,7 @@ class Restaurant(models.Model):
 
 class Review(models.Model):
     point = models.IntegerField()
-    comment = models.CharField(max_length=500)
+    comment = models.CharField(max_length=255)
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, default='')
     restaurant = models.ForeignKey(Restaurant, on_delete=models.CASCADE)
